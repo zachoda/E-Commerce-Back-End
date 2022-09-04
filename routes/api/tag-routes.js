@@ -20,7 +20,9 @@ router.get("/:id", (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Product data
   Tag.findOne({
-    
+    where: {
+      id: req.params.id
+    },
     include: [Product]
   })
   .then(dbTagData => {
@@ -64,7 +66,7 @@ router.put("/:id", (req, res) => {
       if (!dbTagData) {
         res.status(404).json({ message: "No tag found by that id." });
         return;
-      }
+      } res.json(dbTagData)
     })
     .catch((err) => {
       console.log(err);
